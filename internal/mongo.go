@@ -3,7 +3,9 @@ package internal
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"sync"
+	"time"
 )
 
 const (
@@ -35,6 +37,9 @@ func (r *MongoBookRepository) CreateBook(ctx context.Context, book *Book) (BookI
 }
 
 func (r *MongoBookRepository) RetrieveBook(ctx context.Context, id BookId) (*Book, error) {
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+
 	var book Book
 	err := r.collection.FindOne(ctx, map[string]BookId{"id": id}).Decode(&book)
 	if err != nil {
@@ -54,8 +59,11 @@ func (r *MongoBookRepository) DeleteBook(ctx context.Context, id BookId) error {
 }
 
 func (r *MongoBookRepository) ListBook(ctx context.Context, offset int64, limit int64) ([]*Book, error) {
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	defer cancel()
+
 	var books []*Book
-	cursor, err := r.collection.Find(ctx, map[string]interface{}{})
+	cursor, err := r.collection.Find(ctx, map[string]interface{}{}, options.Find().SetSkip(offset).SetLimit(limit))
 	if err != nil {
 		return nil, err
 	}
