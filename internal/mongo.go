@@ -58,9 +58,6 @@ func (r *MongoBookRepository) DeleteBook(ctx context.Context, id BookId) error {
 }
 
 func (r *MongoBookRepository) ListBook(ctx context.Context, offset int64, limit int64) ([]*Book, error) {
-	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
-	defer cancel()
-
 	var books []*Book
 	cursor, err := r.collection.Find(ctx, map[string]interface{}{})
 	if err != nil {
