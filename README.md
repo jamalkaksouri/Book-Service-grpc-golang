@@ -7,9 +7,15 @@ Book-Service-grpc-golang
 $ make proto
 ```
 
-## Running the app
+## Running the app - Server
 
 ```bash
 $ make server
+```
+
+## Running the app - Client
+
+```bash
+$ make client
 ```
 
