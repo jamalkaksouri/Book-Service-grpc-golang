@@ -25,7 +25,7 @@ type BookServiceClient interface {
 	CreateBook(ctx context.Context, in *CreateBookRequest, opts ...grpc.CallOption) (*CreateBookResponse, error)
 	RetrieveBook(ctx context.Context, in *RetrieveBookRequest, opts ...grpc.CallOption) (*RetrieveBookResponse, error)
 	UpdateBook(ctx context.Context, in *UpdateBookRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
-	DeleteBook(ctx context.Context, in *DeleteBookRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
+	DeleteBook(ctx context.Context, in *DeleteBookRequest, opts ...grpc.CallOption) (*DeleteBookResponse, error)
 	ListBook(ctx context.Context, in *ListBookRequest, opts ...grpc.CallOption) (*ListBookResponse, error)
 }
 
@@ -64,8 +64,8 @@ func (c *bookServiceClient) UpdateBook(ctx context.Context, in *UpdateBookReques
 	return out, nil
 }
 
-func (c *bookServiceClient) DeleteBook(ctx context.Context, in *DeleteBookRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error) {
-	out := new(UpdateBookResponse)
+func (c *bookServiceClient) DeleteBook(ctx context.Context, in *DeleteBookRequest, opts ...grpc.CallOption) (*DeleteBookResponse, error) {
+	out := new(DeleteBookResponse)
 	err := c.cc.Invoke(ctx, "/api.v1.BookService/DeleteBook", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -89,7 +89,7 @@ type BookServiceServer interface {
 	CreateBook(context.Context, *CreateBookRequest) (*CreateBookResponse, error)
 	RetrieveBook(context.Context, *RetrieveBookRequest) (*RetrieveBookResponse, error)
 	UpdateBook(context.Context, *UpdateBookRequest) (*UpdateBookResponse, error)
-	DeleteBook(context.Context, *DeleteBookRequest) (*UpdateBookResponse, error)
+	DeleteBook(context.Context, *DeleteBookRequest) (*DeleteBookResponse, error)
 	ListBook(context.Context, *ListBookRequest) (*ListBookResponse, error)
 	mustEmbedUnimplementedBookServiceServer()
 }
@@ -107,7 +107,7 @@ func (UnimplementedBookServiceServer) RetrieveBook(context.Context, *RetrieveBoo
 func (UnimplementedBookServiceServer) UpdateBook(context.Context, *UpdateBookRequest) (*UpdateBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBook not implemented")
 }
-func (UnimplementedBookServiceServer) DeleteBook(context.Context, *DeleteBookRequest) (*UpdateBookResponse, error) {
+func (UnimplementedBookServiceServer) DeleteBook(context.Context, *DeleteBookRequest) (*DeleteBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBook not implemented")
 }
 func (UnimplementedBookServiceServer) ListBook(context.Context, *ListBookRequest) (*ListBookResponse, error) {

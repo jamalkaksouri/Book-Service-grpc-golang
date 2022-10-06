@@ -5,15 +5,15 @@ package api.v1;
 import "google/protobuf/timestamp.proto";
 option go_package = "./api/v1";
 
-service BookService{
+service BookService {
   rpc CreateBook(CreateBookRequest) returns (CreateBookResponse) {};
   rpc RetrieveBook(RetrieveBookRequest) returns (RetrieveBookResponse) {};
   rpc UpdateBook(UpdateBookRequest) returns (UpdateBookResponse) {};
-  rpc DeleteBook(DeleteBookRequest) returns (UpdateBookResponse) {};
+  rpc DeleteBook(DeleteBookRequest) returns (DeleteBookResponse) {};
   rpc ListBook(ListBookRequest) returns (ListBookResponse) {};
 }
 
-message Book{
+message Book {
   int64 id = 1;
   string title = 2;
   string author = 3;
@@ -22,44 +22,41 @@ message Book{
   google.protobuf.Timestamp finish_time = 6;
 }
 
-message CreateBookRequest{
+message CreateBookRequest {
   Book book = 1;
 }
 
-message CreateBookResponse{
+message CreateBookResponse {
   int64 id = 1;
 }
 
-message RetrieveBookRequest{
+message RetrieveBookRequest {
   int64 id = 1;
 }
 
-message RetrieveBookResponse{
+message RetrieveBookResponse {
   Book book = 1;
 }
 
-message UpdateBookRequest{
+message UpdateBookRequest {
   Book book = 1;
 }
 
-message UpdateBookResponse{
-
+message UpdateBookResponse {
 }
 
-message DeleteBookRequest{
+message DeleteBookRequest {
   int64 id = 1;
 }
 
-message DeleteBookResponse{
-
+message DeleteBookResponse {
 }
 
-message ListBookRequest{
+message ListBookRequest {
   int64 offset = 1;
   int64 limit = 2;
 }
-
-message ListBookResponse{
+message ListBookResponse {
   repeated Book books = 1;
 }
 

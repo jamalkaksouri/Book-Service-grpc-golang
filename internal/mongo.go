@@ -3,7 +3,6 @@ package internal
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"sync"
 	"time"
 )
@@ -63,7 +62,7 @@ func (r *MongoBookRepository) ListBook(ctx context.Context, offset int64, limit 
 	defer cancel()
 
 	var books []*Book
-	cursor, err := r.collection.Find(ctx, map[string]interface{}{}, options.Find().SetSkip(offset).SetLimit(limit))
+	cursor, err := r.collection.Find(ctx, map[string]interface{}{})
 	if err != nil {
 		return nil, err
 	}
