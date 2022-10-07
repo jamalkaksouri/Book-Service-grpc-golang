@@ -27,7 +27,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	db := client.Database("testing")
+	db := client.Database("Book_Db")
 
 	// create a new mongo repository
 	var repository internal.BookRepository = internal.NewMongoBookRepository(db)
